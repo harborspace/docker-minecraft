@@ -19,12 +19,15 @@ ENV    DEBIAN_FRONTEND noninteractive
 
 
 # Download and install everything from the repos.
-RUN    apt-get --yes update; apt-get --yes upgrade; apt-get --yes install software-properties-common openssh-server
+RUN    apt-get --yes update; apt-get --yes upgrade; apt-get --yes install software-properties-common openssh-server supervisor
 RUN    sudo apt-add-repository --yes ppa:webupd8team/java; apt-get --yes update
 RUN    echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections  && \
        echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections  && \
        apt-get --yes install curl oracle-java8-installer
-RUN mkdir /var/run/sshd
+RUN mkdir -p /var/run/sshd
+RUN mkdir -p /var/log/supervisor
+
+ADD mc.conf /etc/supervisor/conf.d/mc.conf
 
 # Install SSH 
 RUN    apt-get --yes install ssh
@@ -37,7 +40,7 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 
 # Fix all permissions
 RUN    chmod +x /start
-RUN    service sshd restart
+
 EXPOSE 22
 
 
