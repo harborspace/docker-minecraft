@@ -40,7 +40,6 @@ RUN    chmod +x /start
 
 EXPOSE 22
 
-EXPOSE 10022
 
 # 25565 is for minecraft
 EXPOSE 25565
