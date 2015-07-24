@@ -51,4 +51,4 @@ EXPOSE 25565
 VOLUME ["/data"]
 
 # /start runs it.
-CMD    ["/start"]
+CMD ["/usr/bin/supervisord"]
