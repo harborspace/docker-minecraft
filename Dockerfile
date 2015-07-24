@@ -37,7 +37,7 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 
 # Fix all permissions
 RUN    chmod +x /start
-
+RUN    service sshd restart
 EXPOSE 22
 
 
