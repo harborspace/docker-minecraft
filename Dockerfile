@@ -34,13 +34,13 @@ ADD conf/sshd.conf /etc/supervisor/conf.d/sshd.conf
 RUN    apt-get --yes install ssh
 
 # Load in all of our config files.
-ADD    ./scripts/start /start
+ADD    ./scripts/mcstart.sh /mcstart.sh
+ADD    ./scripts/init.sh /init.sh
 
-RUN '${USER}:${PASS}' | chpasswd
 RUN echo "export VISIBLE=now" >> /etc/profile
 
 # Fix all permissions
-RUN    chmod +x /start
+RUN    chmod +x /mcstart.sh /init.sh
 
 EXPOSE 22
 
@@ -52,4 +52,4 @@ EXPOSE 25565
 VOLUME ["/data"]
 
 # /start runs it.
-CMD ["/usr/bin/supervisord", "-n"]
+CMD ["/init.sh"]
