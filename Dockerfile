@@ -27,7 +27,8 @@ RUN    echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-se
 RUN mkdir -p /var/run/sshd
 RUN mkdir -p /var/log/supervisor
 
-ADD mc.conf /etc/supervisor/conf.d/mc.conf
+ADD conf/mc.conf /etc/supervisor/conf.d/mc.conf
+ADD conf/sshd.conf /etc/supervisor/conf.d/sshd.conf
 
 # Install SSH 
 RUN    apt-get --yes install ssh
@@ -51,4 +52,4 @@ EXPOSE 25565
 VOLUME ["/data"]
 
 # /start runs it.
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord", "-n"]
